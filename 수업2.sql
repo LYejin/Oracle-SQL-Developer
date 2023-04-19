@@ -39,11 +39,19 @@ from employees e
 join departments d on e.department_id=d.department_id
 join locations l on d.location_id = l.location_id;
 
+---KOSA 계정 이동
+show user;
+--USER이(가) "KOSA"입니다.
+select * from emp;
+select * from salgrade; -- 비등가 (범위로 딱 떨어지지 않음)
 
+--사원의 등급 (하나의 컬럼으로 매핑 안돼요) >> 컬럼 두개 사용
+-- 비등가 조인
+-- 문법 등가와 동일 (의미)
 
-
-
-
+select e.empno, e.ename, d.grade, e.sal
+from emp e join salgrade d 
+on e.sal between d.losal and d.hisal; 
 
 
 
