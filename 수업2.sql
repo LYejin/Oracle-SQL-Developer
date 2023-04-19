@@ -53,7 +53,33 @@ select e.empno, e.ename, d.grade, e.sal
 from emp e join salgrade d 
 on e.sal between d.losal and d.hisal; 
 
+-- outer join (equi 조언 선행되고 나서 >> 남아있는 데이터를 가져오는 방법)
+--1. 주종 관계 (주인이 되는 쪽에 남아있는 데이터를 가져오는 방법)
+--2. left outer join (왼쪽이 주인)
+--2.1 right outer join (오른쪽이 주인)
+--2.2 full outer join (양쪽이 주인)
 
+select *
+from m left outer join s
+on m.m1= s.s1;
+-- 주인이 된 쪽의 남은 데이터를 가져온다.
+
+select *
+from m right outer join s
+on m.m1= s.s1;
+
+select *
+from m full outer join s
+on m.m1= s.s1;
+
+
+--사번, 이름(last_name), 부서번호, 부서이름을 출력하세요
+select e.employee_id, e.last_name, e.department_id, d.department_name 
+from employees e left join departments d on e.department_id=d.department_id;
+-- 106명 밖에 안나옴 .. 107명 누락
+-- 해결 : left join
+-- 현업 데이터 (null 고민 JOIN >> outer join)
+select * from employees where department_id is null; -- 조금 이따가 outer join 
 
 
 

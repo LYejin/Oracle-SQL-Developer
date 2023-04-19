@@ -19,9 +19,9 @@
 ALTER USER "HR" IDENTIFIED BY "1004" 
 DEFAULT TABLESPACE "USERS"
 TEMPORARY TABLESPACE "TEMP"
-ACCOUNT UNLOCK ;ㄴ
+ACCOUNT UNLOCK ;
 
--- QUOTASㄴ
+-- QUOTAS
 ALTER USER "HR" QUOTA UNLIMITED ON "USERS";
 
 -- ROLES
@@ -680,9 +680,9 @@ Cartesian Product 모든 가능한 행들의 Join
 *Self Join
 set Operation 여러 개의 SELECT 문장을 연결하여 작성한다
 
-Equijoin Join
-Non-Equijoin Join
-Outer Join Join
+Equijoin Join -- 1:1 매핑할 것이 있는 것
+Non-Equijoin Join -1:1 매핑할 것이 없는 것 
+Outer Join Join 
 Self Join
 
 관계형 DB (RDBS)
@@ -734,7 +734,7 @@ select * from emp;
 
 select * from dept;
 
---사원번호, 사원이름, 부서번호, 부서이름을 출력하세요 (ANST)
+--사원번호, 사원이름, 부서번호, 부서이름을 출력하세요 (ANSI)
 select emp.empno, emp.ename, emp.deptno, dept.dname
 from emp join dept
 on emp.deptno=dept.deptno;
@@ -748,6 +748,8 @@ on e.deptno = d.deptno;
 select s.s1, s.s2, x.x2
 from s join x
 on s.s1 = x.x1;
+
+select sysdate from dual;
 
 
 
