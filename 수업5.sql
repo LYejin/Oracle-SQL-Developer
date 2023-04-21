@@ -7,7 +7,7 @@ select phone_number from employees where regexp_like (phone_number, '([[:digit:]
 */
 
 /*
-2조
+2조 
 */
 
 select * from employees; -- 노동자들의 정보
@@ -86,12 +86,35 @@ where e.salary in (select trunc(avg(salary))from employees group by department_i
 
 --오라클.pdf
 --sequence (시퀀스)
-/*
+/* SEQUENCE 특징 
+1) 자동적으로 유일 번호를 생성합니다.
 2) 공유 가능한 객체(테이블간에)
 3) 주로 기본 키 값을 생성하기 위해 사용됩니다.
 4) 어플리케이션 코드를 대체합니다. (로직 만들 필요 없다)
-5) 메모리
+5) 메모리에 CACHE 되면 SEQUENCE 값을 액세스 하는 효율성을 향상시킵니다
 
+
+CREATE SEQUENCE sequence_name
+[INCREMENT BY n]
+[START WITH n]
+[{MAXVALUE n | NOMAXVALUE}]
+[{MINVALUE n | NOMINVALUE}]
+[{CYCLE | NOCYCLE}]
+[{CACHE | NOCACHE}];
+
+sequence_name           SEQUENCE 의 이름입니다.
+INCREMENT BY            n 정수 값인 n 으로 SEQUENCE 번호 사이의 간격을 지정.
+                        이 절이 생략되면 SEQUENCE 는 1 씩 증가.
+START WITH             n 생성하기 위해 첫번째 SEQUENCE 를 지정.
+이 절이 생략되면 SEQUENCE 는 1 로 시작.
+MAXVALUE n SEQUENCE 를 생성할 수 있는 최대 값을 지정.
+NOMAXVALUE 오름차순용 10^27 최대값과 내림차순용-1 의 최소값을 지정.
+MINVALUE n 최소 SEQUENCE 값을 지정.
+NOMINVALUE 오름차순용 1 과 내림차순용-(10^26)의 최소값을 지정.
+CYCLE | NOCYCLE 최대 또는 최소값에 도달한 후에 계속 값을 생성할 지의 여부를
+지정. NOCYCLE 이 디폴트.
+CACHE | NOCACHE 얼마나 많은 값이 메모리에 오라클 서버가 미리 할당하고 유지
+하는가를 지정. 디폴트로 오라클 서버는 20 을 CACHE
 */
 
 
@@ -331,9 +354,8 @@ from (  select *
 --분석 함수 (조금씩) --개념(index) --PL-SQL 진도 조금씩 할게요
 --------------------------------------------------------------------------------
 --담주 JDBC (JAVA) - MariaDB세팅 (기본작업)
-     
-     
-     
+
+
      
      
      
