@@ -235,9 +235,120 @@ select seq_num.currval from dual;
 --가장 나중에 쓴글 (최신글)
 ---select * from board order by num desc
 
+------------------------------------------------------------------------------
+
+--rownum : 의사컬럼 : 실제 물리적으로 존재하는 컬럼이 아니고 논리적 존재 (create table (x) 사용 안돼요)
+--rownum : 실제로 테이블에 컬럼으로 존재하지 않지만 내부적으로 행 번호를 부여하는 컬럼
+
+select * from emp;
+
+select rownum, empno, ename from emp;
 
 
+select rownum, empno, ename, sal
+from emp
+order by sal;
+-- 실행 순서 >> from >> select >> order by
+
+select rownum, e.*
+from (
+        select empno, ename, sal
+        from emp
+        order by sal -- 정렬의 기준 
+     ) e;
 
 
+--Top-n 쿼리 (데이터 기준이 되는 데이터 순으로 정렬 시키고 상위 n개 가지고 오기)
+--MS-SQL : select top 10, * from emp order by sal desc;
+
+--Oracle Top-n(x), rownum (0)
+--rownum (순번부여 .... 상위 몇개)
+--1. 정렬의 기준 설정하기 (선행)
+--2. 정렬된 기준에 rownum 붙이고 ... 데이터 추출
+
+--급여를 많이 받는 순으로 정렬된 데이터 (rownum) >> 순번 
+select rownum, e.*
+from (
+        select empno, ename, sal
+        from emp
+        order by sal -- 정렬의 기준 
+     ) e;
 
 
+--급여를 많이 받는 사원 5명
+
+select *
+from (
+        select rownum as num, e.*
+        from (
+                select empno, ename, sal
+                from emp
+                order by sal desc -- 정렬의 기준 
+        ) e
+     ) n where num <= 5; -- 대용량 데이터 페이징 원리 (TODAY POINT)
+     
+-- between A and B -- 페이지 처리
+--------------------------------------------------------------------------------
+--기업(10만건 ~ 1억건)
+--게시판 (게시글 10만건)
+--select * from board >> 10만건 조회 ....
+--10만건 나누어서 (10건씩, 20건씩)
+/*
+totaldata = 100건
+pagesize = 10 한 화면에 보여지는 데이터 row 수 : 10건
+page 개수 >> 10개
+
+[1][2][3][4][5][6][7][8][9][10]
+<a href='page.jsp?page=1'>1</a>
+1page 클릭 >> 1~10까지 글 : DB 쿼리 : select num between 1 and 10
+2page 클릭 >> 11~20까지 글 : DB 쿼리 : select num between 11 and 20
+
+1. rownum
+2. between
+
+HR계정 이동
+
+*/
+show user;
+
+select * from employees; --107건 
+
+--사원번호가 낮은 순으로 정렬한 기준을 통해서 .... 41번째부터 50번째 데이터 추출
+
+select *
+from (
+    select rownum as num, e.*
+from (  select *
+    from employees
+    order by employee_id
+    ) e
+) n where num between 41 and 50;
+
+     
+--게시판 만들기 할 때 사용합니다
+--servlet/jsp
+--------------------------------------------------------------------------------
+--분석 함수 (조금씩) --개념(index) --PL-SQL 진도 조금씩 할게요
+--------------------------------------------------------------------------------
+--담주 JDBC (JAVA) - MariaDB세팅 (기본작업)
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
